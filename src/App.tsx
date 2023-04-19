@@ -16,6 +16,7 @@ import { AccountPage } from "@presentation/pages/AccountPage";
 
 export function App() {
   const isAdmin = useOwnUserHasRole(UserRoleEnum.Admin);
+  const isClient = useOwnUserHasRole(UserRoleEnum.Client);
   const { loggedIn } = useAppSelector(x => x.profileReducer);
 
   return <AppIntlProvider> {/* AppIntlProvider provides the functions to search the text after the provides string ids. */}
@@ -27,7 +28,7 @@ export function App() {
         <Route path={AppRoute.Register} element={<RegisterPage />} />
         {loggedIn && <Route path={AppRoute.Cars} element={<CarsPage />} />}
         {!loggedIn && <Route path={AppRoute.Cars} element={<Navigate to={AppRoute.Login} />} />}
-        {loggedIn && <Route path={AppRoute.PublishCar} element={<PublishCarPage />} />}
+        {loggedIn && !isClient && <Route path={AppRoute.PublishCar} element={<PublishCarPage />} />}
         {!loggedIn && <Route path={AppRoute.PublishCar} element={<Navigate to={AppRoute.Login} />} />}
         {loggedIn && <Route path={AppRoute.Account} element={<AccountPage />} />}
         {!loggedIn && <Route path={AppRoute.Account} element={<Navigate to={AppRoute.Login} />} />}

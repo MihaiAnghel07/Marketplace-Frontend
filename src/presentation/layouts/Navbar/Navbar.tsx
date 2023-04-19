@@ -23,7 +23,7 @@ export const Navbar = () => {
   const { formatMessage } = useIntl();
   const { loggedIn } = useAppSelector(x => x.profileReducer);
   const isAdmin = useOwnUserHasRole(UserRoleEnum.Admin);
-  const isUser = useOwnUserHasRole(UserRoleEnum.User);
+  const isClient = useOwnUserHasRole(UserRoleEnum.Client);
   const queryClient = useQueryClient();
   const dispatch = useAppDispatch();
   const { redirectToHome } = useAppRouter();
@@ -96,7 +96,7 @@ export const Navbar = () => {
                 </Grid>
 
                 <Grid container item direction="column" xs={1}>
-                  {loggedIn && <Button color="inherit"> 
+                  {loggedIn && !isClient && <Button color="inherit"> 
                     <Link style={{ color: 'white' }} to={AppRoute.PublishCar}>
                       {formatMessage({ id: "globals.publishCar" })}
                     </Link>
